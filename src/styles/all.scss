@@ -1,0 +1,384 @@
+@use 'fun';
+
+body {
+  font: 900 1rem fun.$font;
+  margin: 0;
+
+  @include fun.dynamic(smoll) {
+    font: 900 0.9rem fun.$font;
+  }
+
+  @include fun.dynamic(tiny) {
+    font: 900 0.8rem fun.$font;
+  }
+}
+
+img {
+  object-fit: cover;
+}
+
+a {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 1s;
+}
+
+a:not(.btn):hover {
+  color: fun.$color;
+}
+
+#app {
+  align-content: center;
+  background: #000;
+  color: #fff;
+  display: grid;
+  justify-content: center;
+}
+
+#links {
+  display: flex;
+  gap: 10px;
+  padding: 20px 20px 0 20px;
+}
+
+.box {
+  display: flex;
+  gap: 10px;
+  justify-items: center;
+  padding: 20px;
+
+  @include fun.dynamic(smoll) {
+    display: grid;
+  }
+  @include fun.dynamic(tiny) {
+    display: grid;
+  }
+}
+
+.box .about {
+  align-content: center;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  width: 480px;
+
+  @include fun.dynamic(mid) {
+    width: 100%;
+  }
+  @include fun.dynamic(smoll) {
+    width: 100%;
+  }
+  @include fun.dynamic(tiny) {
+    width: 100%;
+  }
+}
+
+.boxImg {
+  position: relative;
+}
+
+.boxImg,
+.box img {
+  height: 550px;
+  width: 390px;
+
+  @include fun.dynamic(mid) {
+    height: 480px;
+    width: 340px;
+  }
+  @include fun.dynamic(smoll) {
+    height: 480px;
+    width: 340px;
+  }
+  @include fun.dynamic(tiny) {
+    height: 395px;
+    width: 280px;
+  }
+}
+
+.box .score {
+  animation: none;
+  align-items: center;
+  background-color: transparent;
+  bottom: 0;
+  color: #000;
+  display: flex;
+  height: 140px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  transform: rotate(-10deg);
+  width: 350px;
+
+  @include fun.dynamic(mid) {
+    height: 122px;
+    width: 305px;
+  }
+  @include fun.dynamic(smoll) {
+    height: 122px;
+    width: 305px;
+  }
+  @include fun.dynamic(tiny) {
+    height: 100px;
+    width: 251px;
+  }
+}
+
+.about .big {
+  backdrop-filter: blur(30px);
+  border-radius: 10px;
+  font: 900 3rem Jua;
+
+  @include fun.dynamic(smoll) {
+    font: 900 2.5rem fun.$font;
+  }
+
+  @include fun.dynamic(tiny) {
+    font: 900 2rem fun.$font;
+  }
+}
+
+.about .mid {
+  backdrop-filter: blur(30px);
+  border-radius: 10px;
+  font: 900 1.5rem Jua;
+
+  @include fun.dynamic(smoll) {
+    font: 900 1.4rem fun.$font;
+  }
+
+  @include fun.dynamic(tiny) {
+    font: 900 1.2rem fun.$font;
+  }
+}
+
+.btn {
+  background-color: fun.$color;
+  border-radius: 14px;
+  color: #000;
+  filter: brightness(100%);
+  padding: 15px 20px;
+  transition: 1s filter;
+}
+
+.btn:hover {
+  filter: brightness(120%);
+}
+
+.mangaWrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.mangaWrap .banner {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 0;
+}
+
+.manga {
+  align-items: center;
+  backdrop-filter: blur(20px);
+  display: flex;
+  gap: 20px;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+
+  @include fun.dynamic(smoll) {
+    align-content: center;
+    display: grid;
+    justify-items: center;
+  }
+  @include fun.dynamic(tiny) {
+    align-content: center;
+    display: grid;
+    justify-items: center;
+  }
+}
+
+.pageWrap {
+  position: relative;
+}
+
+.check {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.check img {
+  animation: colorify 1s;
+  background-color: #7fffd4;
+  border-radius: 50%;
+  height: 50px;
+  padding: 25px;
+  width: 50px;
+
+  @include fun.dynamic(smoll) {
+    height: 30px;
+    padding: 15px;
+    width: 30px;
+  }
+  @include fun.dynamic(tiny) {
+    height: 24px;
+    padding: 12px;
+    width: 24px;
+  }
+}
+
+@keyframes colorify {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: #7fffd4;
+  }
+}
+
+.tag {
+  border-radius: 20px;
+  display: flex;
+  gap: 5px;
+  left: -20px;
+  padding: 10px;
+  position: absolute;
+  top: -10px;
+}
+
+.tag.easy {
+  background-color: #ff6dd3;
+}
+
+.tag.mid {
+  background-color: #7caaff;
+}
+
+.tag.hard {
+  background-color: #ff5858;
+}
+
+.tag img {
+  height: 20px;
+  width: 20px;
+
+  @include fun.dynamic(smoll) {
+    height: 15px;
+    width: 15px;
+  }
+  @include fun.dynamic(tiny) {
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.page {
+  animation: blob 2s;
+  border-radius: 5px;
+  height: 600px;
+  width: 380px;
+
+  @include fun.dynamic(mid) {
+    height: 521px;
+    width: 330px;
+  }
+  @include fun.dynamic(smoll) {
+    height: 521px;
+    width: 330px;
+  }
+  @include fun.dynamic(tiny) {
+    height: 442px;
+    width: 280px;
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: scale(90%);
+  }
+  50% {
+    transform: scale(105%);
+  }
+  100% {
+    transform: scale(100%);
+  }
+}
+
+.about {
+  display: grid;
+  gap: 15px;
+}
+
+.head {
+  font: 900 2rem Jua;
+
+  @include fun.dynamic(smoll) {
+    font: 900 1.8rem Jua;
+  }
+  @include fun.dynamic(tiny) {
+    font: 900 1.4rem Jua;
+  }
+}
+
+.guessWrap {
+  background-color: #00000060;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.guess {
+  background-color: transparent;
+  border: 0;
+  color: #fff;
+  font: 900 1rem Jua;
+  outline: 0;
+  padding: 0;
+  width: 290px;
+
+  @include fun.dynamic(smoll) {
+    font: 900 1rem Jua;
+  }
+  @include fun.dynamic(tiny) {
+    font: 900 0.9rem Jua;
+    width: auto;
+  }
+}
+
+.guessWrap img {
+  height: 30px;
+  width: 30px;
+}
+
+.time,
+.score {
+  background-color: #00000060;
+  border-radius: 10px;
+  font: 900 2rem Jua;
+  position: absolute;
+
+  @include fun.dynamic(tiny) {
+    font: 900 1.4rem Jua;
+  }
+}
+
+.time {
+  right: 20px;
+  top: 20px;
+}
+
+.score {
+  animation: blob 2s;
+  bottom: 20px;
+  left: 20px;
+}

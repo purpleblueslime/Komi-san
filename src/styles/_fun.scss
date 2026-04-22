@@ -1,0 +1,20 @@
+/* consts */
+$color: #c2e6fc;
+$font: 'Jua';
+
+/* media queries */
+@mixin dynamic($screen) {
+  @if $screen == mid {
+    @media (770px <= width <= 920px) {
+      @content;
+    }
+  } @else if $screen == smoll {
+    @media (400px <= width <= 770px) {
+      @content;
+    }
+  } @else if $screen == tiny {
+    @media (width <= 400px) {
+      @content;
+    }
+  }
+}

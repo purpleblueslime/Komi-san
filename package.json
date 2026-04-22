@@ -1,0 +1,17 @@
+{
+  "name": "komi-san",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  },
+  "type": "module",
+  "dependencies": {
+    "mongo": "^0.1.0",
+    "next": "^16.2.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "sass": "^1.63.6"
+  }
+}
