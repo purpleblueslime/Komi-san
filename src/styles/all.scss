@@ -7,7 +7,6 @@ body {
   @include fun.dynamic(smoll) {
     font: 900 0.9rem fun.$font;
   }
-
   @include fun.dynamic(tiny) {
     font: 900 0.8rem fun.$font;
   }
@@ -133,7 +132,6 @@ a:not(.btn):hover {
   @include fun.dynamic(smoll) {
     font: 900 2.5rem fun.$font;
   }
-
   @include fun.dynamic(tiny) {
     font: 900 2rem fun.$font;
   }
@@ -147,7 +145,6 @@ a:not(.btn):hover {
   @include fun.dynamic(smoll) {
     font: 900 1.4rem fun.$font;
   }
-
   @include fun.dynamic(tiny) {
     font: 900 1.2rem fun.$font;
   }
@@ -178,6 +175,15 @@ a:not(.btn):hover {
   width: 100%;
   right: 0;
   top: 0;
+
+  @include fun.dynamic(smoll) {
+    height: 0;
+    width: 0;
+  }
+  @include fun.dynamic(tiny) {
+    height: 0;
+    width: 0;
+  }
 }
 
 .manga {
@@ -192,11 +198,13 @@ a:not(.btn):hover {
   @include fun.dynamic(smoll) {
     align-content: center;
     display: grid;
+    gap: 15px;
     justify-items: center;
   }
   @include fun.dynamic(tiny) {
     align-content: center;
     display: grid;
+    gap: 10px;
     justify-items: center;
   }
 }
@@ -316,6 +324,13 @@ a:not(.btn):hover {
 .about {
   display: grid;
   gap: 15px;
+
+  @include fun.dynamic(smoll) {
+    gap: 10px;
+  }
+  @include fun.dynamic(tiny) {
+    gap: 10px;
+  }
 }
 
 .head {
@@ -335,6 +350,13 @@ a:not(.btn):hover {
   display: flex;
   gap: 10px;
   padding: 10px;
+
+  @include fun.dynamic(smoll) {
+    background-color: transparent;
+  }
+  @include fun.dynamic(tiny) {
+    background-color: transparent;
+  }
 }
 
 .guess {
@@ -367,7 +389,12 @@ a:not(.btn):hover {
   font: 900 2rem Jua;
   position: absolute;
 
+  @include fun.dynamic(smoll) {
+    background-color: transparent;
+    font: 900 1.8rem Jua;
+  }
   @include fun.dynamic(tiny) {
+    background-color: transparent;
     font: 900 1.4rem Jua;
   }
 }
@@ -375,10 +402,28 @@ a:not(.btn):hover {
 .time {
   right: 20px;
   top: 20px;
+
+  @include fun.dynamic(smoll) {
+    right: 15px;
+    top: 15px;
+  }
+  @include fun.dynamic(tiny) {
+    right: 10px;
+    top: 10px;
+  }
 }
 
 .score {
   animation: blob 2s;
   bottom: 20px;
   left: 20px;
+
+  @include fun.dynamic(smoll) {
+    bottom: 15px;
+    left: 15px;
+  }
+  @include fun.dynamic(tiny) {
+    bottom: 10px;
+    left: 10px;
+  }
 }
