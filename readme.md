@@ -5,7 +5,7 @@
 **Komi-san** will show you a page from a manga and you'll have to **guess that manga's title in 12 seconds**. no hints just memory & luck, built using **nextjs**, **mongo**, **scss**. 👘
 
 > [!NOTE]
-> [**`Komi`**](https://komi-san.vercel.app/) is still in early development and there are only a few mangas to guess ;-;
+> I am now using [**`MangaDex api 🍱`**](https://api.mangadex.org/docs/) to fetch manga data and chapters.
 
 # Run yourself
 
