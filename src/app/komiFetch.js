@@ -31,19 +31,25 @@ export async function komiFetch(offset) {
   const { data: chps } = await axios({
     method: 'GET',
     url: `${baseUrl}/manga/${manga.id}/feed`,
+    params: {
+      translatedLanguage: ['en', 'es', 'pt-br', 'zh', 'zh-hk'], // gimme any at this point ;-;
+    },
   });
 
   if (!chps.data) return;
   if (chps.data.length <= 20) manga.tag = 'hard';
   else if (chps.data.length <= 50) manga.tag = 'mid';
   else manga.tag = 'easy';
+
   const chp = chps.data[Math.floor(Math.random() * chps.data.length)];
+  if (!chp) return;
 
   const { data: pages } = await axios({
     method: 'GET',
     url: `${baseUrl}/at-home/server/${chp.id}`,
   });
 
+  if (!pages.chapter.hash || !pages.chapter.dataSaver[4]) return; // happens smtimes idk why ask mangadex
   const page = `./api/page?url=${pages.baseUrl}/data-saver/${pages.chapter.hash}/${pages.chapter.dataSaver[4]}`;
 
   return {
