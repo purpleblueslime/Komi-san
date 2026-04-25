@@ -1,10 +1,9 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { komiFetch, komiSearch } from './komiFetch.js';
 
 export default function Page() {
-  const [game, $game] = useState({ is: 'wait', time: 12, score: 0 });
+  const [game, $game] = useState({ is: 'wait', time: 12, score: 0, offset: 0 });
   const [manga, $manga] = useState();
   const [search, $search] = useState('');
 
@@ -12,7 +11,10 @@ export default function Page() {
     setInterval(() => {
       $game((game) => {
         if (game.is !== 'on') return game;
-        if (game.time === 0) return { ...game, is: 'over' };
+        if (game.time === 0) {
+          setTimeout(() => $game({ ...game, is: 'over' }), 5000);
+          return { ...game, is: 'timeup' };
+        }
 
         return { ...game, time: game.time - 1 };
       });
@@ -21,7 +23,7 @@ export default function Page() {
 
   useEffect(() => {
     if (!manga) return;
-    const img = app.querySelector(`#${manga.id}`);
+    const img = app.querySelector(`#im${manga.id}`);
     const onload = () =>
       $game((game) => {
         return { ...game, is: 'on' };
@@ -31,8 +33,8 @@ export default function Page() {
     img.onload = onload;
   }, [manga, $game]);
 
-  async function gameOn() {
-    const data = await komiFetch();
+  async function gameOn(offset) {
+    const data = await komiFetch(offset || game.offset);
     $manga(data);
     $search('');
     $game((game) => {
@@ -53,20 +55,22 @@ export default function Page() {
       // fixes those weird manga jumps :3
       if (game.is === 'win' || game.is === 'over') return game;
 
-      setTimeout(() => gameOn(), 5000);
-      $search(data.title);
+      setTimeout(() => gameOn(game.offset + 1), 5000);
 
       return {
         ...game,
         is: 'win',
         score: game.score + 1,
+        offset: game.offset + 1,
       };
     });
   }
 
   async function gameContinue() {
-    $game({ ...game, score: 0 });
-    gameOn();
+    await gameOn();
+    $game((game) => {
+      return { ...game, score: 0 };
+    });
   }
 
   if (game.is == 'over')
@@ -79,7 +83,7 @@ export default function Page() {
         <div className='about'>
           <div className='big'>Uh- Oh- time ran out-</div>
           <div className='mid'>You tried your best but you can do better!</div>
-          <a className='btn' onClick={gameContinue}>
+          <a className='btn' onClick={() => gameContinue()}>
             Play again!
           </a>
         </div>
@@ -89,7 +93,12 @@ export default function Page() {
   if (manga)
     return (
       <div className='mangaWrap'>
-        <img className='banner' src={manga.page} />
+        <img
+          className='banner'
+          src={
+            game.is === 'win' || game.is === 'timeup' ? manga.image : manga.page
+          }
+        />
         <div className='manga'>
           <div className='time'>{game.time}s</div>
           <div className='score' key={game.score}>
@@ -98,32 +107,51 @@ export default function Page() {
           <div className='pageWrap'>
             <img
               className='page'
-              id={manga.id}
-              key={game.is == 'win' ? manga.image : manga.page}
-              src={game.is == 'win' ? manga.image : manga.page}
+              id={`im${manga.id}`}
+              key={
+                game.is === 'win' || game.is === 'timeup'
+                  ? manga.image
+                  : manga.page
+              }
+              src={
+                game.is === 'win' || game.is === 'timeup'
+                  ? manga.image
+                  : manga.page
+              }
             />
             <div className={`tag ${manga.tag}`}>
               <img src={`/${manga.tag}.svg`} />
               {manga.tag}
             </div>
-            {game.is == 'win' ? (
-              <div className='check'>
-                <img key={game.is} src='/check.svg' />
+            {game.is === 'win' || game.is === 'timeup' ? (
+              <div className={game.is === 'win' ? 'check' : 'wrong'}>
+                <img
+                  key={game.is}
+                  src={game.is === 'win' ? 'check.svg' : 'wrong.svg'}
+                />
               </div>
             ) : (
               <></>
             )}
           </div>
           <div className='about'>
-            <div className='head'>Guess this manga page?</div>
+            <div className='head'>
+              {game.is === 'timeup'
+                ? 'Uh- Oh- time ran out-'
+                : 'Guess this manga page?'}
+            </div>
             <div className='guessWrap'>
               <input
                 className='guess'
                 onChange={(e) => guess(e.target.value)}
                 placeholder='Your guess'
-                value={search}
+                value={
+                  game.is === 'win' || game.is === 'timeup'
+                    ? manga.titles.en || manga.titles['ja-ro']
+                    : search
+                }
               />
-              <img src='/compare.svg' />
+              <img src={game.is === 'timeup' ? 'wrong.svg' : 'compare.svg'} />
             </div>
           </div>
         </div>
@@ -139,7 +167,7 @@ export default function Page() {
           Komi-san will show you a page from a manga and you'll have to guess
           that manga's title in 12s
         </div>
-        <a className='btn' onClick={gameOn}>
+        <a className='btn' onClick={() => gameOn()}>
           Game on!
         </a>
       </div>

@@ -213,7 +213,8 @@ a:not(.btn):hover {
   position: relative;
 }
 
-.check {
+.check,
+.wrong {
   align-items: center;
   display: flex;
   height: 100%;
@@ -224,9 +225,10 @@ a:not(.btn):hover {
   width: 100%;
 }
 
-.check img {
+.check img,
+.wrong img {
   animation: colorify 1s;
-  background-color: #7fffd4;
+  background-color: transparent;
   border-radius: 50%;
   height: 50px;
   padding: 25px;
@@ -244,12 +246,31 @@ a:not(.btn):hover {
   }
 }
 
-@keyframes colorify {
+.check img {
+  animation: checkify 1s;
+  background-color: #7fffd4;
+}
+
+@keyframes checkify {
   from {
     background-color: transparent;
   }
   to {
     background-color: #7fffd4;
+  }
+}
+
+.wrong img {
+  animation: wrongify 1s;
+  background-color: #ff5858;
+}
+
+@keyframes wrongify {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: #ff5858;
   }
 }
 

@@ -1,13 +1,13 @@
 {
   "name": "komi-san",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build"
   },
   "type": "module",
   "dependencies": {
-    "mongo": "^0.1.0",
+    "axios": "^1.15.2",
     "next": "^16.2.2"
   },
   "devDependencies": {
