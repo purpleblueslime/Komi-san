@@ -59,7 +59,7 @@ export default function Page() {
 
     $game((game) => {
       // fixes those weird manga jumps :3
-      if (game.is === 'win' || game.is === 'over') return game;
+      if (game.is !== 'on') return game;
 
       setTimeout(() => gameOn(game.offset + 1), 5000);
 
