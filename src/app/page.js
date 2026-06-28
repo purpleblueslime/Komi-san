@@ -32,14 +32,15 @@ export default function page() {
 
     if (img.complete) return onload();
     img.onload = onload;
+    img.onerror = () => img.load();
   }, [manga, $game]);
 
   async function gameOn(offset) {
     const data = await komiFetch(offset || game.offset);
     if (!data) {
       return $game((game) => {
-        gameOn(offset + 1);
-        return { ...game, offset: offset + 1 };
+        gameOn(game.offset + 1);
+        return { ...game, offset: game.offset + 1 };
       });
     }
     $manga(data);
